@@ -225,4 +225,5 @@ public class LengthOfLIS300 {
 
         return result;
     }
+
 }
