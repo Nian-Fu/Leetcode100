@@ -20,7 +20,7 @@ public class Jump45 {
      *
      * 算法流程：
      * 1. 读取用户输入的跳跃数组
-     * 2. 调用jump方法计算最小跳跃次数
+     * 2. 调用 [jump](file:///Users/funian/Documents/JavaProject/Algorithm/src/main/java/com/funian/algorithm/algorithm/Jump45.java#L97-L128)方法计算最小跳跃次数
      * 3. 输出结果
      */
     public static void main(String[] args) {
@@ -53,7 +53,7 @@ public class Jump45 {
      * 策略：在当前跳跃区间内，不断更新下一次跳跃能到达的最远位置
      * 当遍历完当前跳跃区间时，必须进行下一次跳跃，并更新相关变量
      *
-     * 执行过程分析（以nums=[2,3,1,1,4]为例）：
+     * 执行过程分析（以`nums=[2,3,1,1,4]`为例）：
      *
      * 初始状态：
      * jumps = 0
@@ -87,7 +87,15 @@ public class Jump45 {
      * 最终结果：jumps = 2
      * 最优策略：[2] -> [3] -> [4]（下标0->1->4，跳跃2次）
      *
-     * @param nums 跳跃数组，nums[i]表示在下标i处可以跳跃的最大长度
+     * 时间复杂度分析：
+     * - 遍历数组：O(n)
+     * - 每次操作：O(1)
+     * - 总时间复杂度：O(n)
+     *
+     * 空间复杂度分析：
+     * - 只使用常数额外变量：O(1)
+     *
+     * @param nums 跳跃数组，`nums[i]`表示在下标i处可以跳跃的最大长度
      * @return 到达最后一个下标的最小跳跃次数
      */
     public static int jump(int[] nums) {
@@ -124,7 +132,15 @@ public class Jump45 {
      * 方法2：动态规划解法
      *
      * 算法思路：
-     * dp[i]表示到达位置i的最小跳跃次数
+     * `dp[i]`表示到达位置i的最小跳跃次数
+     *
+     * 时间复杂度分析：
+     * - 外层循环：O(n)
+     * - 内层循环：O(nums[i])
+     * - 最坏情况总时间复杂度：O(n²)
+     *
+     * 空间复杂度分析：
+     * - dp数组：O(n)
      *
      * @param nums 跳跃数组
      * @return 到达最后一个下标的最小跳跃次数
@@ -153,6 +169,16 @@ public class Jump45 {
      * 将问题看作图论中的最短路径问题
      * 每个位置是一个节点，能跳跃的关系是边
      * 使用BFS找到从位置0到位置n-1的最短路径
+     *
+     * 时间复杂度分析：
+     * - BFS遍历：O(n²)（最坏情况）
+     * - 队列操作：O(1)
+     * - 总时间复杂度：O(n²)
+     *
+     * 空间复杂度分析：
+     * - 队列存储空间：O(n)
+     * - visited数组：O(n)
+     * - 总空间复杂度：O(n)
      *
      * @param nums 跳跃数组
      * @return 到达最后一个下标的最小跳跃次数

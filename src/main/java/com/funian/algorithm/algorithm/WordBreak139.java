@@ -11,7 +11,7 @@ import java.util.HashSet;
  * 单词拆分（LeetCode 139）- 动态规划
  *
  * 时间复杂度：O(n² * m)
- * - n是字符串s的长度
+ * - n是字符串`s`的长度
  * - m是单词字典的大小
  * - 外层循环运行n次，内层循环运行n次，每次需要检查子串是否在字典中（最坏情况O(n)）
  *
@@ -24,11 +24,11 @@ public class WordBreak139 {
      * 判断字符串是否能被字典中的单词拆分
      *
      * 算法思路：
-     * 使用动态规划，定义dp[i]表示字符串s的前i个字符能否被拆分
+     * 使用动态规划，定义`dp[i]`表示字符串`s`的前i个字符能否被拆分
      * 状态转移方程：
-     * dp[i] = OR(dp[j] && s.substring(j, i) in wordDict) for all j where 0 <= j < i
+     * `dp[i] = OR(dp[j] && s.substring(j, i) in wordDict)` for all j where 0 <= j < i
      *
-     * 执行过程分析（以s="leetcode", wordDict=["leet","code"]为例）：
+     * 执行过程分析（以`s="leetcode"`, `wordDict=["leet","code"]`为例）：
      *
      * 初始化DP数组（n=8）：
      * dp = [T, F, F, F, F, F, F, F, F]
@@ -47,6 +47,16 @@ public class WordBreak139 {
      *      j=4时，dp[4]=T且"code"在字典中，dp[8]=T
      *
      * 最终结果：dp[8] = T，可以拆分
+     *
+     * 时间复杂度分析：
+     * - 初始化DP数组：O(1)
+     * - 填充DP数组：O(n² * m)
+     * - 总时间复杂度：O(n² * m)
+     *
+     * 空间复杂度分析：
+     * - DP数组存储空间：O(n)
+     * - 哈希集合存储空间：O(m)
+     * - 总空间复杂度：O(n + m)
      *
      * @param s 待拆分的字符串
      * @param wordDict 单词字典
@@ -83,6 +93,16 @@ public class WordBreak139 {
      *
      * 算法思路：
      * 记录字典中最长单词的长度，避免检查过长的子串
+     *
+     * 时间复杂度分析：
+     * - 计算最长单词长度：O(m)
+     * - 填充DP数组：O(n * maxLen * m)
+     * - 总时间复杂度：O(n * maxLen * m)，其中maxLen为字典中最长单词长度
+     *
+     * 空间复杂度分析：
+     * - DP数组存储空间：O(n)
+     * - 哈希集合存储空间：O(m)
+     * - 总空间复杂度：O(n + m)
      *
      * @param s 待拆分的字符串
      * @param wordDict 单词字典
@@ -123,6 +143,21 @@ public class WordBreak139 {
     /**
      * 方法3：记忆化递归解法
      *
+     * 算法思路：
+     * 使用递归方式从字符串开头开始尝试所有可能的拆分，
+     * 并使用记忆化数组避免重复计算相同子问题
+     *
+     * 时间复杂度分析：
+     * - 每个子问题只计算一次：O(n)
+     * - 每个子问题需要尝试所有可能的单词：O(m * n)
+     * - 总时间复杂度：O(n² * m)
+     *
+     * 空间复杂度分析：
+     * - 递归调用栈：O(n)
+     * - 记忆化数组：O(n)
+     * - 哈希集合存储空间：O(m)
+     * - 总空间复杂度：O(n + m)
+     *
      * @param s 待拆分的字符串
      * @param wordDict 单词字典
      * @return 如果能被拆分返回true，否则返回false
@@ -135,6 +170,9 @@ public class WordBreak139 {
 
     /**
      * 记忆化递归辅助方法
+     *
+     * 算法思路：
+     * 递归地检查从start位置开始的子串是否可以被拆分
      *
      * @param s 待拆分的字符串
      * @param wordSet 单词集合
@@ -165,6 +203,12 @@ public class WordBreak139 {
 
     /**
      * 辅助方法：读取用户输入的字符串列表
+     *
+     * 时间复杂度分析：
+     * - 读取和处理输入：O(k)，k为输入字符串数量
+     *
+     * 空间复杂度分析：
+     * - 存储字符串列表：O(k)
      *
      * @param prompt 提示信息
      * @return 字符串列表

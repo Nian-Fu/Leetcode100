@@ -33,7 +33,7 @@ public class SingleNumber136 {
      *
      * 算法流程：
      * 1. 读取用户输入的整数数组
-     * 2. 调用singleNumber方法找出只出现一次的元素
+     * 2. 调用[singleNumber](file:///Users/funian/Documents/JavaProject/Algorithm/src/main/java/com/funian/algorithm/algorithm/SingleNumber136.java#L139-L152)方法找出只出现一次的元素
      * 3. 输出结果
      */
     public static void main(String[] args) {
@@ -101,6 +101,14 @@ public class SingleNumber136 {
      * 111 ^ 001 = 110 (6)
      * 110 ^ 010 = 100 (4)
      *
+     * 时间复杂度分析：
+     * - 遍历数组一次：O(n)
+     * - 异或运算：O(1)
+     * - 总时间复杂度：O(n)
+     *
+     * 空间复杂度分析：
+     * - 只使用一个额外变量：O(1)
+     *
      * @param nums 整数数组，除了一个元素只出现一次外，其他元素都出现两次
      * @return 只出现一次的元素
      */
@@ -121,6 +129,16 @@ public class SingleNumber136 {
      *
      * 算法思路：
      * 使用哈希表统计每个元素出现的次数，然后找出出现次数为1的元素
+     *
+     * 时间复杂度分析：
+     * - 遍历数组统计次数：O(n)
+     * - 遍历哈希表查找结果：O(n)
+     * - 哈希表操作平均时间复杂度：O(1)
+     * - 总时间复杂度：O(n)
+     *
+     * 空间复杂度分析：
+     * - 哈希表存储元素计数：O(n)
+     * - 最坏情况下需要存储所有不同元素：O(n)
      *
      * @param nums 整数数组
      * @return 只出现一次的元素
@@ -149,6 +167,16 @@ public class SingleNumber136 {
      *
      * 算法思路：
      * 对数组进行排序，相同的元素会相邻，只出现一次的元素必然与相邻元素不同
+     *
+     * 时间复杂度分析：
+     * - 排序操作：O(n log n)
+     * - 遍历查找：O(n)
+     * - 总时间复杂度：O(n log n)
+     *
+     * 空间复杂度分析：
+     * - 如果允许修改原数组，则为O(1)
+     * - 否则需要O(n)空间复制数组
+     * - 排序算法本身可能需要额外空间，取决于具体实现
      *
      * @param nums 整数数组
      * @return 只出现一次的元素

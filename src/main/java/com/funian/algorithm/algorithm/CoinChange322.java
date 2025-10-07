@@ -19,11 +19,11 @@ public class CoinChange322 {
      * 计算凑成总金额所需的最少硬币个数
      *
      * 算法思路：
-     * 使用动态规划，定义dp[i]表示凑成金额i所需的最少硬币个数
+     * 使用动态规划，定义`dp[i]`表示凑成金额i所需的最少硬币个数
      * 状态转移方程：
-     * dp[i] = min(dp[i - coin] + 1) for all coin in coins where coin <= i
+     * `dp[i] = min(dp[i - coin] + 1)` for all coin in coins where coin <= i
      *
-     * 执行过程分析（以coins=[1,3,4], amount=6为例）：
+     * 执行过程分析（以`coins=[1,3,4]`, `amount=6`为例）：
      *
      * 初始化DP数组（amount=6）：
      * dp = [0, MAX, MAX, MAX, MAX, MAX, MAX]
@@ -37,6 +37,14 @@ public class CoinChange322 {
      * dp[6] = min(dp[5] + 1, dp[3] + 1, dp[2] + 1) = 2 （使用硬币3+3）
      *
      * 最终结果：dp[6] = 2（使用两个硬币3）
+     *
+     * 时间复杂度分析：
+     * - 初始化DP数组：O(amount)
+     * - 填充DP数组：O(amount * coins.length)
+     * - 总时间复杂度：O(amount * coins.length)
+     *
+     * 空间复杂度分析：
+     * - DP数组存储空间：O(amount)
      *
      * @param coins 不同面额的硬币数组
      * @param amount 总金额
@@ -76,6 +84,15 @@ public class CoinChange322 {
      * 将问题看作图论问题，每个金额是一个节点
      * 如果两个金额相差一个硬币面额，则它们之间有边
      * 使用BFS找到从0到amount的最短路径
+     *
+     * 时间复杂度分析：
+     * - BFS遍历：O(amount * coins.length)
+     * - 队列操作：O(1)
+     * - 总时间复杂度：O(amount * coins.length)
+     *
+     * 空间复杂度分析：
+     * - 队列存储空间：O(amount)
+     * - visited数组存储空间：O(amount)
      *
      * @param coins 不同面额的硬币数组
      * @param amount 总金额
@@ -122,6 +139,19 @@ public class CoinChange322 {
     /**
      * 方法3：记忆化递归解法
      *
+     * 算法思路：
+     * 使用递归方式计算凑成指定金额所需的最少硬币数，
+     * 并通过记忆化数组避免重复计算相同子问题
+     *
+     * 时间复杂度分析：
+     * - 每个子问题只计算一次：O(amount)
+     * - 每个子问题需要尝试所有硬币：O(coins.length)
+     * - 总时间复杂度：O(amount * coins.length)
+     *
+     * 空间复杂度分析：
+     * - 递归调用栈：O(amount)
+     * - 记忆化数组存储空间：O(amount)
+     *
      * @param coins 不同面额的硬币数组
      * @param amount 总金额
      * @return 凑成总金额所需的最少硬币个数，如果无法凑成返回-1
@@ -137,6 +167,9 @@ public class CoinChange322 {
 
     /**
      * 记忆化递归辅助方法
+     *
+     * 算法思路：
+     * 递归地计算凑成指定金额所需的最少硬币数
      *
      * @param coins 不同面额的硬币数组
      * @param amount 剩余金额
@@ -167,6 +200,12 @@ public class CoinChange322 {
 
     /**
      * 辅助方法：读取用户输入的硬币数组
+     *
+     * 时间复杂度分析：
+     * - 读取和处理输入：O(n)，n为硬币数量
+     *
+     * 空间复杂度分析：
+     * - 存储硬币数组：O(n)
      *
      * @return 用户输入的整数数组
      */

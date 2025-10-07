@@ -25,13 +25,7 @@ public class InOrderTraversal94 {
         int val;
         TreeNode left;
         TreeNode right;
-        TreeNode() {}
         TreeNode(int val) { this.val = val; }
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
     }
 
     /**
@@ -63,17 +57,34 @@ public class InOrderTraversal94 {
      *
      * 最终结果：[1,3,2]
      *
+     * 时间复杂度分析：
+     * - 每个节点访问一次：O(n)，其中n为节点数
+     *
+     * 空间复杂度分析：
+     * - 递归调用栈深度：O(h)，其中h为树的高度
+     * - 最坏情况（链状树）：O(n)
+     * - 最好情况（平衡树）：O(log n)
+     *
      * @param root 二叉树的根节点
      * @return 中序遍历的结果列表
      */
     public List<Integer> inorderTraversalRecursive(TreeNode root) {
+        // 创建结果列表
         List<Integer> result = new ArrayList<>();
+        // 调用递归辅助方法
         inorderHelper(root, result);
+        // 返回结果列表
         return result;
     }
 
     /**
      * 递归辅助方法
+     *
+     * 时间复杂度分析：
+     * - 每个节点访问一次：O(n)
+     *
+     * 空间复杂度分析：
+     * - 递归调用栈深度：O(h)
      *
      * @param root 当前节点
      * @param result 结果列表
@@ -93,6 +104,8 @@ public class InOrderTraversal94 {
         // 递归遍历右子树
         inorderHelper(root.right, result);
     }
+
+
 
     /**
      * 方法2：迭代解法
@@ -129,12 +142,22 @@ public class InOrderTraversal94 {
      *
      * 最终结果：[1,3,2]
      *
+     * 时间复杂度分析：
+     * - 每个节点入栈和出栈一次：O(n)，其中n为节点数
+     *
+     * 空间复杂度分析：
+     * - 栈最多存储树的高度个节点：O(h)
+     * - 最坏情况：O(n)，最好情况：O(log n)
+     *
      * @param root 二叉树的根节点
      * @return 中序遍历的结果列表
      */
     public List<Integer> inorderTraversalIterative(TreeNode root) {
+        // 创建结果列表
         List<Integer> result = new ArrayList<>();
+        // 创建栈用于模拟递归
         Stack<TreeNode> stack = new Stack<>();
+        // current 当前节点指针，初始指向根节点
         TreeNode current = root;
 
         // 当栈不为空或当前节点不为空时继续循环
@@ -153,6 +176,7 @@ public class InOrderTraversal94 {
             current = current.right;
         }
 
+        // 返回结果列表
         return result;
     }
 
@@ -166,11 +190,19 @@ public class InOrderTraversal94 {
      *    - 如果前驱节点的右指针为空，将其指向当前节点，然后移向左子树
      *    - 如果前驱节点的右指针指向当前节点，说明左子树已遍历完，断开连接，访问当前节点，移向右子树
      *
+     * 时间复杂度分析：
+     * - 每个节点最多被访问3次：O(n)，其中n为节点数
+     *
+     * 空间复杂度分析：
+     * - 只使用常数额外空间：O(1)
+     *
      * @param root 二叉树的根节点
      * @return 中序遍历的结果列表
      */
     public List<Integer> inorderTraversalMorris(TreeNode root) {
+        // 创建结果列表
         List<Integer> result = new ArrayList<>();
+        // current 当前节点指针，初始指向根节点
         TreeNode current = root;
 
         while (current != null) {
@@ -198,6 +230,7 @@ public class InOrderTraversal94 {
             }
         }
 
+        // 返回结果列表
         return result;
     }
 
@@ -206,18 +239,24 @@ public class InOrderTraversal94 {
      * 注意：这里采用层序遍历的输入方式，null表示空节点
      */
     public TreeNode createTree(Scanner scanner) {
+        // 提示用户输入
         System.out.println("请输入二叉树节点值，按层序遍历输入，null表示空节点，用空格分隔：");
+        // 读取一行输入
         String input = scanner.nextLine();
+        // 按空格分割字符串得到字符串数组
         String[] values = input.split(" ");
 
         if (values.length == 0 || "null".equals(values[0])) {
             return null;
         }
 
+        // 创建根节点
         TreeNode root = new TreeNode(Integer.parseInt(values[0]));
+        // 创建队列用于层序遍历
         Queue<TreeNode> queue = new java.util.LinkedList<>();
         queue.offer(root);
 
+        // i 数组索引
         int i = 1;
         while (!queue.isEmpty() && i < values.length) {
             TreeNode node = queue.poll();
@@ -237,6 +276,7 @@ public class InOrderTraversal94 {
             i++;
         }
 
+        // 返回根节点
         return root;
     }
 
@@ -251,7 +291,9 @@ public class InOrderTraversal94 {
      * 主函数：处理用户输入并演示中序遍历
      */
     public static void main(String[] args) {
+        // 创建解决方案实例
         InOrderTraversal94 solution = new InOrderTraversal94();
+        // 创建Scanner对象读取用户输入
         Scanner scanner = new Scanner(System.in);
 
         // 创建二叉树
@@ -266,6 +308,7 @@ public class InOrderTraversal94 {
 
         // 演示三种遍历方法
         while (true) {
+            // 打印操作选项
             System.out.println("\n请选择遍历方法:");
             System.out.println("1. 递归解法");
             System.out.println("2. 迭代解法");
@@ -273,10 +316,12 @@ public class InOrderTraversal94 {
             System.out.println("4. 退出");
             System.out.print("请输入选项(1-4): ");
 
+            // 读取用户选择
             int choice = scanner.nextInt();
-            scanner.nextLine(); // 消费换行符
+            scanner.nextLine();
 
             List<Integer> result;
+            // 根据用户选择执行相应操作
             switch (choice) {
                 case 1:
                     result = solution.inorderTraversalRecursive(root);
@@ -294,11 +339,13 @@ public class InOrderTraversal94 {
                     break;
 
                 case 4:
+                    // 退出程序
                     System.out.println("退出程序");
                     scanner.close();
                     return;
 
                 default:
+                    // 处理无效选项
                     System.out.println("无效选项，请重新输入");
             }
         }

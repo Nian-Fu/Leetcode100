@@ -3,8 +3,6 @@ package com.funian.algorithm.algorithm;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 二叉树的最大深度（LeetCode 104）
@@ -29,13 +27,7 @@ public class MaxDepthBinaryTree104 {
         int val;
         TreeNode left;
         TreeNode right;
-        TreeNode() {}
         TreeNode(int val) { this.val = val; }
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
     }
 
     /**
@@ -70,6 +62,14 @@ public class MaxDepthBinaryTree104 {
      * │  │  └─ return max(0,0)+1 = 1
      * │  └─ return max(1,1)+1 = 2
      * └─ return max(1,2)+1 = 3
+     *
+     * 时间复杂度分析：
+     * - 每个节点访问一次：O(n)，其中n为二叉树节点数
+     *
+     * 空间复杂度分析：
+     * - 递归调用栈深度：O(h)，其中h为树的高度
+     * - 最坏情况（链状树）：O(n)
+     * - 最好情况（平衡树）：O(log n)
      *
      * @param root 二叉树的根节点
      * @return 二叉树的最大深度
@@ -121,6 +121,13 @@ public class MaxDepthBinaryTree104 {
      *
      * 队列为空，返回depth=3
      *
+     * 时间复杂度分析：
+     * - 每个节点入队和出队一次：O(n)，其中n为二叉树节点数
+     *
+     * 空间复杂度分析：
+     * - 队列最多存储一层的节点数：O(w)，其中w为树的最大宽度
+     * - 最坏情况：O(n)，最好情况：O(1)
+     *
      * @param root 二叉树的根节点
      * @return 二叉树的最大深度
      */
@@ -171,24 +178,32 @@ public class MaxDepthBinaryTree104 {
         return depth;
     }
 
+
     /**
      * 辅助方法：根据数组创建二叉树（用于测试）
      * 注意：这里采用层序遍历的输入方式，null表示空节点
      */
     public static TreeNode createTree() {
+        // 创建Scanner对象读取用户输入
         Scanner scanner = new Scanner(System.in);
+        // 提示用户输入
         System.out.println("请输入二叉树节点值，按层序遍历输入，null表示空节点，用空格分隔：");
+        // 读取一行输入
         String input = scanner.nextLine();
+        // 按空格分割字符串得到字符串数组
         String[] values = input.split(" ");
 
         if (values.length == 0 || "null".equals(values[0]) || values[0].isEmpty()) {
             return null;
         }
 
+        // 创建根节点
         TreeNode root = new TreeNode(Integer.parseInt(values[0]));
+        // 创建队列用于层序遍历
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
 
+        // i 数组索引
         int i = 1;
         while (!queue.isEmpty() && i < values.length) {
             TreeNode node = queue.poll();
@@ -208,6 +223,7 @@ public class MaxDepthBinaryTree104 {
             i++;
         }
 
+        // 返回根节点
         return root;
     }
 
@@ -215,6 +231,7 @@ public class MaxDepthBinaryTree104 {
      * 主函数：处理用户输入并计算二叉树的最大深度
      */
     public static void main(String[] args) {
+        // 打印标题
         System.out.println("二叉树最大深度计算");
 
         // 创建二叉树
@@ -228,6 +245,7 @@ public class MaxDepthBinaryTree104 {
         System.out.println("二叉树创建成功");
 
         // 计算最大深度
+        // 创建解决方案实例
         MaxDepthBinaryTree104 solution = new MaxDepthBinaryTree104();
         int depth1 = solution.maxDepthRecursive(root);
         int depth2 = solution.maxDepth(root);

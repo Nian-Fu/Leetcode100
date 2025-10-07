@@ -87,6 +87,14 @@ public class FindDuplicate287 {
      *
      * 因此，从头节点到环入口的距离等于从相遇点到环入口的距离
      *
+     * 时间复杂度分析：
+     * - 第一阶段寻找相遇点：O(n)
+     * - 第二阶段寻找环入口：O(n)
+     * - 总时间复杂度：O(n)
+     *
+     * 空间复杂度分析：
+     * - 只使用了两个指针变量：O(1)
+     *
      * @param nums 包含n+1个整数的数组，数字都在[1,n]范围内
      * @return 重复的数字
      */
@@ -96,15 +104,16 @@ public class FindDuplicate287 {
         int fast = nums[0];
 
         // 循环直到快慢指针相遇
+        // do-while循环确保至少执行一次
         do {
             slow = nums[slow];          // 慢指针每次移动一步
             fast = nums[nums[fast]];    // 快指针每次移动两步
-        } while (slow != fast);
+        } while (slow != fast); // 当快慢指针相遇时结束循环
 
         // 步骤 2：寻找环的入口
         slow = nums[0]; // 将慢指针放回起始位置
         // 快指针保持在相遇点位置
-        while (slow != fast) {
+        while (slow != fast) { // 当快慢指针再次相遇时找到环入口
             slow = nums[slow];  // 每次移动一步
             fast = nums[fast];  // 每次移动一步
         }
@@ -120,6 +129,14 @@ public class FindDuplicate287 {
      * 利用抽屉原理，对于区间[1,n]中的任意数字k，
      * 如果数组中小于等于k的数字个数大于k，则重复数字在[1,k]区间内
      * 否则重复数字在[k+1,n]区间内
+     *
+     * 时间复杂度分析：
+     * - 二分查找执行次数：O(log n)
+     * - 每次二分查找需要遍历数组统计：O(n)
+     * - 总时间复杂度：O(n log n)
+     *
+     * 空间复杂度分析：
+     * - 只使用了常数个变量（left, right, mid, count）：O(1)
      *
      * @param nums 包含n+1个整数的数组，数字都在[1,n]范围内
      * @return 重复的数字

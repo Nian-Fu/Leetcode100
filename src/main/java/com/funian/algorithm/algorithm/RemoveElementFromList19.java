@@ -40,6 +40,14 @@ public class RemoveElementFromList19 {
      * 4. 修改指针跳过第4个节点：3->next = 3->next->next（即5）
      * 5. 结果：1->2->3->5
      *
+     * 时间复杂度分析：
+     * - 第一次遍历计算长度：O(L)，其中L为链表长度
+     * - 第二次遍历找到删除位置：O(L-n)
+     * - 总时间复杂度：O(L)
+     *
+     * 空间复杂度分析：
+     * - 只使用常数额外变量：O(1)
+     *
      * @param head 链表的头节点
      * @param n 倒数第n个节点
      * @return 删除节点后的链表头节点
@@ -101,6 +109,13 @@ public class RemoveElementFromList19 {
      * 执行删除操作：3->next = 3->next->next（即5）
      * 结果：1->2->3->5
      *
+     * 时间复杂度分析：
+     * - 遍历链表一次：O(L)，其中L为链表长度
+     * - 总时间复杂度：O(L)
+     *
+     * 空间复杂度分析：
+     * - 只使用常数额外变量：O(1)
+     *
      * @param head 链表的头节点
      * @param n 倒数第n个节点
      * @return 删除节点后的链表头节点
@@ -136,12 +151,16 @@ public class RemoveElementFromList19 {
      */
     public ListNode createList(int[] values) {
         if (values.length == 0) return null;
+        // 创建头节点
         ListNode head = new ListNode(values[0]);
+        // current 当前节点指针
         ListNode current = head;
+        // for (int i = 1; i < values.length; i++) 遍历数组剩余元素
         for (int i = 1; i < values.length; i++) {
             current.next = new ListNode(values[i]);
             current = current.next;
         }
+        // 返回链表头节点
         return head;
     }
 
@@ -149,6 +168,7 @@ public class RemoveElementFromList19 {
      * 辅助方法：打印链表（用于测试）
      */
     public void printList(ListNode head) {
+        // current 当前节点指针，初始指向头节点
         ListNode current = head;
         while (current != null) {
             System.out.print(current.val);
@@ -164,11 +184,13 @@ public class RemoveElementFromList19 {
      * 测试方法和使用示例
      */
     public static void main(String[] args) {
+        // 创建解决方案实例
         RemoveElementFromList19 solution = new RemoveElementFromList19();
 
         // 创建测试链表: 1 -> 2 -> 3 -> 4 -> 5
         ListNode head = solution.createList(new int[]{1, 2, 3, 4, 5});
 
+        // 打印原始链表
         System.out.println("原始链表:");
         solution.printList(head);
 
@@ -179,18 +201,21 @@ public class RemoveElementFromList19 {
 
         // 重新创建链表进行测试
         head = solution.createList(new int[]{1, 2, 3, 4, 5});
+        // solution.removeNthFromEndWithTwoPointers(head, 2) 使用双指针法删除倒数第2个节点
         ListNode result2 = solution.removeNthFromEndWithTwoPointers(head, 2);
         System.out.println("删除倒数第2个节点后（双指针法）:");
         solution.printList(result2);
 
         // 测试删除头节点
         head = solution.createList(new int[]{1, 2, 3, 4, 5});
+        // solution.removeNthFromEndWithTwoPointers(head, 5) 使用双指针法删除倒数第5个节点（头节点）
         ListNode result3 = solution.removeNthFromEndWithTwoPointers(head, 5);
         System.out.println("删除倒数第5个节点后（删除头节点）:");
         solution.printList(result3);
 
         // 测试删除尾节点
         head = solution.createList(new int[]{1, 2, 3, 4, 5});
+        // solution.removeNthFromEndWithTwoPointers(head, 1) 使用双指针法删除倒数第1个节点（尾节点）
         ListNode result4 = solution.removeNthFromEndWithTwoPointers(head, 1);
         System.out.println("删除倒数第1个节点后（删除尾节点）:");
         solution.printList(result4);

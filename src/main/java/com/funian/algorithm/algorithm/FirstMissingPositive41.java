@@ -3,7 +3,7 @@ package com.funian.algorithm.algorithm;
 import java.util.Scanner;
 
 /**
- * 缺失的第一个正数
+ * 缺失的第一个正数（LeetCode 41）
  *
  * 时间复杂度：O(n)
  * - 第一个循环最多执行 n 次交换操作（每个元素最多被放置到正确位置一次）
@@ -20,14 +20,19 @@ public class FirstMissingPositive41 {
 
         // 读取输入的数组
         System.out.print("请输入数组元素，以空格分隔：");
+
         // 读取一行输入
         String line = scanner.nextLine();
+
         // 按空格分割字符串得到字符串数组
         String[] str = line.split(" ");
+
         // 获取数组长度
         int n = str.length;
+
         // 创建整型数组
         int[] nums = new int[n];
+
         // 将字符串数组转换为整型数组
         for (int i = 0; i < n; i++) {
             nums[i] = Integer.parseInt(str[i]);
@@ -73,6 +78,14 @@ public class FirstMissingPositive41 {
      *
      * 结果: 2
      *
+     * 时间复杂度分析：
+     * - 放置数字到正确位置：O(n)，其中n为输入数组`nums`的长度，每个元素最多被交换一次
+     * - 查找第一个不匹配位置：O(n)
+     * - 总时间复杂度：O(n)
+     *
+     * 空间复杂度分析：
+     * - 原地操作，只使用常数额外空间：O(1)
+     *
      * @param nums 输入的整数数组
      * @return 缺失的第一个正整数
      */
@@ -96,7 +109,8 @@ public class FirstMissingPositive41 {
         for (int i = 0; i < n; i++) {
             // 如果索引i位置存放的不是i+1，则i+1就是缺失的第一个正整数
             if (nums[i] != i + 1) {
-                return i + 1; // 返回缺失的最小正整数
+                // 返回缺失的最小正整数
+                return i + 1;
             }
         }
 
@@ -107,6 +121,12 @@ public class FirstMissingPositive41 {
 
     /**
      * 交换数组中两个位置的元素
+     *
+     * 时间复杂度分析：
+     * - 交换操作：O(1)
+     *
+     * 空间复杂度分析：
+     * - 只使用常数额外空间：O(1)
      *
      * @param nums 数组
      * @param i 第一个位置
@@ -119,5 +139,124 @@ public class FirstMissingPositive41 {
         nums[i] = nums[j];
         // 将临时变量的值赋给第二个位置
         nums[j] = temp;
+    }
+
+    /**
+     * 方法2：使用布尔数组标记
+     *
+     * 算法思路：
+     * 1. 创建布尔数组标记[1,n]范围内的数字是否存在
+     * 2. 遍历原数组，标记存在的正整数
+     * 3. 找到第一个未被标记的位置
+     *
+     * 示例过程（以数组 [3,4,-1,1] 为例）：
+     *
+     * 1. 初始化: present = [false, false, false, false, false] (长度为n+1=5)
+     * 2. 标记过程:
+     *    num=3: 0<3≤4, present[3]=true → [false, false, false, true, false]
+     *    num=4: 0<4≤4, present[4]=true → [false, false, false, true, true]
+     *    num=-1: -1≤0, 跳过
+     *    num=1: 0<1≤4, present[1]=true → [false, true, false, true, true]
+     * 3. 查找过程:
+     *    i=1: present[1]=true, 继续
+     *    i=2: present[2]=false, 返回2
+     *
+     * 时间复杂度分析：
+     * - 标记存在的正整数：O(n)，其中n为输入数组`nums`的长度
+     * - 查找第一个不存在的正整数：O(n)
+     * - 总时间复杂度：O(n)
+     *
+     * 空间复杂度分析：
+     * - 布尔数组：O(n)
+     * - 其他变量：O(1)
+     * - 总空间复杂度：O(n)
+     *
+     * @param nums 输入的整数数组
+     * @return 缺失的第一个正整数
+     */
+    public static int firstMissingPositiveBooleanArray(int[] nums) {
+        int n = nums.length;
+        boolean[] present = new boolean[n + 1];
+
+        // 标记存在的正整数
+        for (int num : nums) {
+            if (num > 0 && num <= n) {
+                present[num] = true;
+            }
+        }
+
+        // 找到第一个不存在的正整数
+        for (int i = 1; i <= n; i++) {
+            if (!present[i]) {
+                return i;
+            }
+        }
+
+        return n + 1;
+    }
+
+    /**
+     * 方法3：将负数和超出范围的数标记为n+1
+     *
+     * 算法思路：
+     * 1. 将所有非正数和大于n的数替换为n+1
+     * 2. 使用数组本身作为标记数组，将对应位置的数变为负数
+     * 3. 找到第一个正数的位置
+     *
+     * 示例过程（以数组 [3,4,-1,1] 为例）：
+     *
+     * 1. 初始化: nums = [3, 4, -1, 1], n = 4
+     * 2. 替换非正数:
+     *    nums[0]=3: 3>0, 不变
+     *    nums[1]=4: 4>0, 不变
+     *    nums[2]=-1: -1≤0, nums[2]=5 → [3, 4, 5, 1]
+     *    nums[3]=1: 1>0, 不变
+     * 3. 标记数组:
+     *    i=0, num=abs(3)=3: 3≤4, nums[2]=-abs(nums[2])=-5 → [3, 4, -5, 1]
+     *    i=1, num=abs(4)=4: 4≤4, nums[3]=-abs(nums[3])=-1 → [3, 4, -5, -1]
+     *    i=2, num=abs(-5)=5: 5>4, 跳过
+     *    i=3, num=abs(-1)=1: 1≤4, nums[0]=-abs(nums[0])=-3 → [-3, 4, -5, -1]
+     * 4. 查找正数:
+     *    i=0: nums[0]=-3<0, 继续
+     *    i=1: nums[1]=4>0, 返回1+1=2
+     *
+     * 时间复杂度分析：
+     * - 替换非正数：O(n)，其中n为输入数组`nums`的长度
+     * - 标记数组：O(n)
+     * - 查找正数：O(n)
+     * - 总时间复杂度：O(n)
+     *
+     * 空间复杂度分析：
+     * - 原地操作：O(1)
+     *
+     * @param nums 输入的整数数组
+     * @return 缺失的第一个正整数
+     */
+    public static int firstMissingPositiveMarking(int[] nums) {
+        int n = nums.length;
+
+        // 将所有非正数替换为n+1
+        for (int i = 0; i < n; i++) {
+            if (nums[i] <= 0) {
+                nums[i] = n + 1;
+            }
+        }
+
+        // 使用数组本身作为标记数组
+        for (int i = 0; i < n; i++) {
+            int num = Math.abs(nums[i]);
+            if (num <= n) {
+                nums[num - 1] = -Math.abs(nums[num - 1]);
+            }
+        }
+
+        // 找到第一个正数的位置
+        for (int i = 0; i < n; i++) {
+            if (nums[i] > 0) {
+                return i + 1;
+            }
+        }
+
+        return n + 1;
     }
 }

@@ -56,6 +56,17 @@ public class CopyRandomList138 {
      *
      * 结果链表：A'(1)->B'(2)->C'(3)，其中A'.random=C', B'.random=A'
      *
+     * 时间复杂度分析：
+     * - 第一次遍历创建节点：O(n)，其中n为链表长度
+     * - 第二次遍历设置指针：O(n)
+     * - 哈希表操作：O(1)
+     * - 总时间复杂度：O(n)
+     *
+     * 空间复杂度分析：
+     * - 哈希表存储映射关系：O(n)
+     * - 新链表节点：O(n)
+     * - 总空间复杂度：O(n)
+     *
      * @param head 原链表的头节点
      * @return 复制后的链表头节点
      */
@@ -119,6 +130,17 @@ public class CopyRandomList138 {
      * 新链表：A'(1) -> B'(2) -> C'(3) -> null
      * 其中：A'.random = C', B'.random = A'
      *
+     * 时间复杂度分析：
+     * - 第一遍遍历复制节点：O(n)
+     * - 第二遍遍历设置random指针：O(n)
+     * - 第三遍遍历分离链表：O(n)
+     * - 总时间复杂度：O(n)
+     *
+     * 空间复杂度分析：
+     * - 只使用常数额外变量：O(1)
+     * - 新链表节点：O(n)
+     * - 总空间复杂度：O(1)（不考虑输出空间）
+     *
      * @param head 原链表的头节点
      * @return 复制后的链表头节点
      */
@@ -128,10 +150,10 @@ public class CopyRandomList138 {
         // 第一遍遍历：复制每个节点并插入到原节点后面
         Node current = head;
         while (current != null) {
-            Node newNode = new Node(current.val);     // 创建新节点
-            newNode.next = current.next;              // 新节点指向原节点的下一个节点
-            current.next = newNode;                   // 原节点指向新节点
-            current = newNode.next;                   // 移动到原链表的下一个节点
+            Node newNode = new Node(current.val);
+            newNode.next = current.next;
+            current.next = newNode;
+            current = newNode.next;
         }
 
         // 第二遍遍历：设置新节点的 random 指针
@@ -142,14 +164,14 @@ public class CopyRandomList138 {
             if (current.random != null) {
                 current.next.random = current.random.next;
             }
-            current = current.next.next;  // 移动到原链表的下一个节点
+            current = current.next.next;
         }
 
         // 第三遍遍历：将新节点从原节点中分离出来
-        Node newHead = head.next;         // 新链表的头节点
-        current = head;                   // 原链表的当前节点
+        Node newHead = head.next;
+        current = head;
         while (current != null) {
-            Node newNode = current.next;  // 新链表的当前节点
+            Node newNode = current.next;
 
             // 恢复原链表的next指针
             current.next = newNode.next;
@@ -159,9 +181,10 @@ public class CopyRandomList138 {
                 newNode.next = newNode.next.next;
             }
 
-            current = current.next;       // 移动到原链表的下一个节点
+            current = current.next;
         }
 
+        // 返回新链表的头节点
         return newHead;
     }
 
@@ -189,6 +212,7 @@ public class CopyRandomList138 {
             }
         }
 
+        // 返回链表头节点
         return nodes[0];
     }
 
@@ -209,6 +233,7 @@ public class CopyRandomList138 {
         current = head;
         index = 0;
         while (current != null) {
+            // randomIndex random指针指向节点的索引
             int randomIndex = (current.random != null) ? nodeToIndex.get(current.random) : -1;
             System.out.println("Node " + index + ": val=" + current.val +
                              ", random->Node " + (randomIndex == -1 ? "null" : randomIndex));

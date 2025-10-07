@@ -20,7 +20,7 @@ public class ClimbStairs70 {
      *
      * 算法流程：
      * 1. 读取用户输入的楼梯阶数
-     * 2. 调用climbStairs方法计算到达楼顶的方法数
+     * 2. 调用 [climbStairs](file:///Users/funian/Documents/JavaProject/Algorithm/src/main/java/com/funian/algorithm/algorithm/ClimbStairs70.java#L75-L92)方法计算到达楼顶的方法数
      * 3. 输出结果
      */
     public static void main(String[] args) {
@@ -70,6 +70,13 @@ public class ClimbStairs70 {
      * 方法3: 2 + 1（先爬2阶，再爬1阶）
      * 总计：3种方法
      *
+     * 时间复杂度分析：
+     * - 循环计算：O(n)
+     * - 总时间复杂度：O(n)
+     *
+     * 空间复杂度分析：
+     * - 只使用常数额外变量：O(1)
+     *
      * @param n 楼梯的阶数
      * @return 到达楼顶的方法数
      */
@@ -95,6 +102,17 @@ public class ClimbStairs70 {
     /**
      * 方法2：标准动态规划解法
      *
+     * 算法思路：
+     * 使用动态规划数组存储每阶楼梯的方法数
+     *
+     * 时间复杂度分析：
+     * - 初始化DP数组：O(1)
+     * - 填充DP数组：O(n)
+     * - 总时间复杂度：O(n)
+     *
+     * 空间复杂度分析：
+     * - DP数组存储空间：O(n)
+     *
      * @param n 楼梯的阶数
      * @return 到达楼顶的方法数
      */
@@ -116,10 +134,20 @@ public class ClimbStairs70 {
         return dp[n];
     }
 
-
-
     /**
      * 方法3：记忆化递归解法
+     *
+     * 算法思路：
+     * 使用递归方式计算方法数，并通过记忆化数组避免重复计算
+     *
+     * 时间复杂度分析：
+     * - 每个子问题只计算一次：O(n)
+     * - 总时间复杂度：O(n)
+     *
+     * 空间复杂度分析：
+     * - 递归调用栈：O(n)
+     * - 记忆化数组存储空间：O(n)
+     * - 总空间复杂度：O(n)
      *
      * @param n 楼梯的阶数
      * @return 到达楼顶的方法数
@@ -131,6 +159,9 @@ public class ClimbStairs70 {
 
     /**
      * 记忆化递归辅助方法
+     *
+     * 算法思路：
+     * 递归计算爬楼梯的方法数，并使用记忆化数组缓存已计算的结果
      *
      * @param n 楼梯的阶数
      * @param memo 记忆化数组
@@ -146,5 +177,4 @@ public class ClimbStairs70 {
         memo[n] = climbStairsHelper(n - 1, memo) + climbStairsHelper(n - 2, memo);
         return memo[n];
     }
-
 }

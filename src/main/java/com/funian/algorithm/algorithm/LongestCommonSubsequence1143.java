@@ -21,7 +21,7 @@ public class LongestCommonSubsequence1143 {
      *
      * 算法流程：
      * 1. 读取用户输入的两个字符串
-     * 2. 调用longestCommonSubsequence方法计算最长公共子序列的长度
+     * 2. 调用 [longestCommonSubsequence](file:///Users/funian/Documents/JavaProject/Algorithm/src/main/java/com/funian/algorithm/algorithm/LongestCommonSubsequence1143.java#L117-L144)方法计算最长公共子序列的长度
      * 3. 输出结果
      */
     public static void main(String[] args) {
@@ -49,7 +49,7 @@ public class LongestCommonSubsequence1143 {
      * 计算两个字符串的最长公共子序列长度
      *
      * 算法思路：
-     * 使用动态规划，定义dp[i][j]表示text1的前i个字符和text2的前j个字符的最长公共子序列长度
+     * 使用动态规划，定义`dp[i][j]`表示text1的前i个字符和text2的前j个字符的最长公共子序列长度
      * 状态转移方程：
      * 1. 如果text1[i-1] == text2[j-1]，则dp[i][j] = dp[i-1][j-1] + 1
      * 2. 如果text1[i-1] != text2[j-1]，则dp[i][j] = max(dp[i-1][j], dp[i][j-1])
@@ -82,6 +82,14 @@ public class LongestCommonSubsequence1143 {
      *
      * 最终结果：dp[5][3] = 3，LCS为"ace"
      *
+     * 时间复杂度分析：
+     * - 初始化DP表：O(m*n)
+     * - 填充DP表：O(m*n)
+     * - 总时间复杂度：O(m*n)
+     *
+     * 空间复杂度分析：
+     * - DP表存储空间：O(m*n)
+     *
      * @param text1 第一个字符串
      * @param text2 第二个字符串
      * @return 最长公共子序列的长度
@@ -113,6 +121,19 @@ public class LongestCommonSubsequence1143 {
 
     /**
      * 扩展方法：找出实际的最长公共子序列
+     *
+     * 算法思路：
+     * 在计算完DP表后，通过回溯的方式构造出实际的LCS字符串
+     * 从DP表的右下角开始，根据状态转移的路径反向构造LCS
+     *
+     * 时间复杂度分析：
+     * - 填充DP表：O(m*n)
+     * - 回溯构造LCS：O(m+n)
+     * - 总时间复杂度：O(m*n)
+     *
+     * 空间复杂度分析：
+     * - DP表存储空间：O(m*n)
+     * - StringBuilder存储LCS：O(min(m,n))
      *
      * @param text1 第一个字符串
      * @param text2 第二个字符串

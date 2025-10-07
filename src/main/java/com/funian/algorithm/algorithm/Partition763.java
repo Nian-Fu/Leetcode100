@@ -22,7 +22,7 @@ public class Partition763 {
      *
      * 算法流程：
      * 1. 读取用户输入的字符串
-     * 2. 调用partitionLabels方法计算每个片段的长度
+     * 2. 调用 [partitionLabels](file:///Users/funian/Documents/JavaProject/Algorithm/src/main/java/com/funian/algorithm/algorithm/Partition763.java#L93-L129)方法计算每个片段的长度
      * 3. 输出结果
      */
     public static void main(String[] args) {
@@ -43,7 +43,7 @@ public class Partition763 {
      * 3. 对于每个字符，更新当前片段的结束位置为max(当前结束位置, 该字符最后出现位置)
      * 4. 当遍历到当前片段结束位置时，说明找到了一个完整的片段
      *
-     * 执行过程分析（以s="ababcbacadefegdehijhklij"为例）：
+     * 执行过程分析（以`s="ababcbacadefegdehijhklij"`为例）：
      *
      * 第一步：记录每个字符最后出现的位置
      * a:8, b:5, c:7, d:14, e:15, f:11, g:13, h:19, i:22, j:23, k:20, l:21
@@ -88,6 +88,16 @@ public class Partition763 {
      * 最终结果：[9, 7, 8]
      * 对应片段："ababcbaca" | "defegde" | "hijhklij"
      *
+     * 时间复杂度分析：
+     * - 记录字符最后位置：O(n)
+     * - 确定片段边界：O(n)
+     * - 总时间复杂度：O(n)
+     *
+     * 空间复杂度分析：
+     * - lastIndex数组：O(1)（固定26个字母）
+     * - result列表：O(k)（k为片段数量）
+     * - 总空间复杂度：O(1)
+     *
      * @param s 输入字符串
      * @return 每个字符串片段的长度列表
      */
@@ -101,7 +111,6 @@ public class Partition763 {
         // 记录每个字符最后出现的位置
         // 遍历字符串，更新每个字符的最后位置
         for (int i = 0; i < n; i++) {
-            // s.charAt(i) - 'a' 将字符转换为0-25的索引
             lastIndex[s.charAt(i) - 'a'] = i;
         }
 
@@ -131,6 +140,20 @@ public class Partition763 {
 
     /**
      * 扩展方法：返回实际的字符串片段而不仅仅是长度
+     *
+     * 算法思路：
+     * 与 [partitionLabels](file:///Users/funian/Documents/JavaProject/Algorithm/src/main/java/com/funian/algorithm/algorithm/Partition763.java#L93-L129)方法类似，但返回实际的字符串片段而不是长度
+     *
+     * 时间复杂度分析：
+     * - 记录字符最后位置：O(n)
+     * - 确定片段边界：O(n)
+     * - substring操作：O(k*m)（k为片段数，m为平均片段长度）
+     * - 总时间复杂度：O(n + k*m)
+     *
+     * 空间复杂度分析：
+     * - lastIndex数组：O(1)（固定26个字母）
+     * - result列表：O(n)（存储所有片段）
+     * - 总空间复杂度：O(n)
      *
      * @param s 输入字符串
      * @return 字符串片段列表
@@ -162,6 +185,19 @@ public class Partition763 {
 
     /**
      * 扩展方法：验证划分结果的正确性
+     *
+     * 算法思路：
+     * 1. 检查重新拼接的片段是否等于原字符串
+     * 2. 检查每个片段中的字符是否不会出现在其他片段中
+     *
+     * 时间复杂度分析：
+     * - 重新拼接字符串：O(n)
+     * - 验证字符分布：O(k²*m)（k为片段数，m为平均片段长度）
+     * - 总时间复杂度：O(n + k²*m)
+     *
+     * 空间复杂度分析：
+     * - StringBuilder：O(n)
+     * - 总空间复杂度：O(n)
      *
      * @param s 原始字符串
      * @param partitions 字符串片段列表

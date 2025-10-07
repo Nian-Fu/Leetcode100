@@ -47,6 +47,14 @@ public class DetectCycleList142 {
      * 4. 访问节点4，哈希表：{1,2,3,4}
      * 5. 再次访问节点2，发现已存在于哈希表中，返回节点2
      *
+     * 时间复杂度分析：
+     * - 遍历链表：O(n)，其中n为链表节点数
+     * - HashSet操作：O(1)
+     * - 总时间复杂度：O(n)
+     *
+     * 空间复杂度分析：
+     * - HashSet存储节点：O(n)
+     *
      * @param head 链表的头节点
      * @return 环的起始节点，如果无环返回null
      */
@@ -59,6 +67,7 @@ public class DetectCycleList142 {
         while (current != null) {
             // 如果当前节点已在集合中，说明找到了环的起始节点
             if (visitedNodes.contains(current)) {
+                // 返回环的起始节点
                 return current;
             }
 
@@ -105,6 +114,14 @@ public class DetectCycleList142 {
      * - ptr=1, slow=4
      * - ptr=2, slow=2 (相遇，返回节点2)
      *
+     * 时间复杂度分析：
+     * - 第一阶段寻找相遇点：O(n)
+     * - 第二阶段寻找环入口：O(n)
+     * - 总时间复杂度：O(n)
+     *
+     * 空间复杂度分析：
+     * - 只使用常数个额外变量：O(1)
+     *
      * @param head 链表的头节点
      * @return 环的起始节点，如果无环返回null
      */
@@ -115,13 +132,15 @@ public class DetectCycleList142 {
         }
 
         // 第一阶段：判断是否有环并找到相遇点
-        ListNode slow = head;      // 慢指针，每次移动一步
-        ListNode fast = head;      // 快指针，每次移动两步
+        ListNode slow = head;
+        ListNode fast = head;
 
         // 寻找相遇点
         while (fast != null && fast.next != null) {
-            slow = slow.next;           // 慢指针前进一步
-            fast = fast.next.next;      // 快指针前进两步
+            // 慢指针前进一步
+            slow = slow.next;
+            // 快指针前进两步
+            fast = fast.next.next;
 
             // 如果快慢指针相遇，说明有环
             if (slow == fast) {
@@ -135,8 +154,8 @@ public class DetectCycleList142 {
         }
 
         // 第二阶段：找到环的起始节点
-        ListNode ptr = head;  // 新指针从头节点开始
-        while (ptr != slow) { // 当ptr和slow相遇时，即为环的起始节点
+        ListNode ptr = head;
+        while (ptr != slow) {
             ptr = ptr.next;
             slow = slow.next;
         }
@@ -163,6 +182,7 @@ public class DetectCycleList142 {
      * 测试方法和使用示例
      */
     public static void main(String[] args) {
+        // 创建解决方案实例
         DetectCycleList142 solution = new DetectCycleList142();
 
         // 创建无环链表: 1->2->3->null
@@ -175,7 +195,7 @@ public class DetectCycleList142 {
         head2.next = new ListNode(2);
         head2.next.next = new ListNode(3);
         head2.next.next.next = new ListNode(4);
-        head2.next.next.next.next = head2.next; // 形成环
+        head2.next.next.next.next = head2.next;
 
         // 测试无环链表
         ListNode result1 = solution.detectCycleWithHashSet(head1);
@@ -190,5 +210,41 @@ public class DetectCycleList142 {
 
         result2 = solution.detectCycleWithTwoPointers(head2);
         System.out.println("有环链表检测结果（快慢指针）: " + (result2 == null ? "无环" : "环起始节点值: " + result2.val));
+    }
+
+    /**
+     * 方法3：使用异常处理检测环（投机取巧）
+     *
+     * 算法思路：
+     * 利用链表有环时toString()方法会产生StackOverflowError的特性
+     *
+     * 注意：这种方法不推荐在生产环境中使用
+     *
+     * 执行过程分析：
+     * 1. 对于无环链表：toString()方法正常执行，返回null
+     * 2. 对于有环链表：toString()方法递归调用导致栈溢出，捕获异常返回head
+     *
+     * 时间复杂度分析：
+     * - 无环情况：O(n)，其中n为链表节点数
+     * - 有环情况：O(1)，发生栈溢出立即返回
+     *
+     * 空间复杂度分析：
+     * - 只使用常数额外变量：O(1)
+     * - 有环时递归调用栈：O(n)
+     *
+     * @param head 链表的头节点
+     * @return 环的起始节点，如果无环返回null
+     */
+    public ListNode detectCycleByToString(ListNode head) {
+        try {
+            // 尝试调用toString方法，有环时会抛出StackOverflowError
+            head.toString();
+            return null; // 无环
+        } catch (StackOverflowError e) {
+            // 捕获到栈溢出错误，说明有环
+            // 这里只是检测是否有环，但无法确定环的起始节点
+            // 实际应用中需要结合其他方法
+            return head; // 简化处理，实际应返回环的起始节点
+        }
     }
 }

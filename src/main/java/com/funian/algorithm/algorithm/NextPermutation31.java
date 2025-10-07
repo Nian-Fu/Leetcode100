@@ -21,7 +21,7 @@ public class NextPermutation31 {
      *
      * 算法流程：
      * 1. 读取用户输入的整数数组
-     * 2. 调用nextPermutation方法计算下一个排列
+     * 2. 调用[nextPermutation](file:///Users/funian/Documents/JavaProject/Algorithm/src/main/java/com/funian/algorithm/algorithm/NextPermutation31.java#L137-L163)方法计算下一个排列
      * 3. 输出结果
      */
     public static void main(String[] args) {
@@ -116,6 +116,16 @@ public class NextPermutation31 {
      * 步骤3：交换1和2，得到 [2,3,1]
      * 步骤4：反转i+1到末尾，即反转[3,1]得到[1,3]，最终 [2,1,3]
      *
+     * 时间复杂度分析：
+     * - 查找递减对：O(n)
+     * - 查找替换元素：O(n)
+     * - 交换元素：O(1)
+     * - 反转数组：O(n)
+     * - 总时间复杂度：O(n)
+     *
+     * 空间复杂度分析：
+     * - 原地修改数组：O(1)
+     *
      * @param nums 整数数组
      */
     public static void nextPermutation(int[] nums) {
@@ -147,6 +157,12 @@ public class NextPermutation31 {
     /**
      * 交换数组中两个元素的辅助方法
      *
+     * 时间复杂度分析：
+     * - 交换操作：O(1)
+     *
+     * 空间复杂度分析：
+     * - 只使用常数额外空间：O(1)
+     *
      * @param nums 数组
      * @param i 第一个元素的索引
      * @param j 第二个元素的索引
@@ -159,6 +175,12 @@ public class NextPermutation31 {
 
     /**
      * 反转数组从 start 到 end 的辅助方法
+     *
+     * 时间复杂度分析：
+     * - 反转操作：O(n)，其中n为(end-start+1)/2
+     *
+     * 空间复杂度分析：
+     * - 原地操作：O(1)
      *
      * @param nums 数组
      * @param start 起始索引

@@ -57,6 +57,14 @@ public class SortColor75 {
      * current > two，循环结束
      * 最终结果：[0,0,1,1,2,2]
      *
+     * 时间复杂度分析：
+     * - 遍历数组一次：O(n)
+     * - 每个元素最多被访问常数次
+     *
+     * 空间复杂度分析：
+     * - 只使用常数额外变量（zero, two, current）：O(1)
+     * - 原地排序，不需要额外存储空间
+     *
      * @param nums 包含0、1、2的数组
      */
     public void sortColors(int[] nums) {
@@ -64,7 +72,7 @@ public class SortColor75 {
         int two = nums.length - 1;  // 指向下一个2应该放置的位置
         int current = 0;     // 当前正在处理的元素索引
 
-        // 当current指针超过two指针时停止
+        // 当current指针不超过two指针时继续循环
         while (current <= two) {
             if (nums[current] == 0) {
                 // 如果当前元素是0，将其交换到数组前端
@@ -83,12 +91,21 @@ public class SortColor75 {
         }
     }
 
+
     /**
      * 方法2：两次遍历计数法
      *
      * 算法思路：
      * 1. 第一次遍历统计0、1、2的个数
      * 2. 第二次遍历根据统计结果重写数组
+     *
+     * 时间复杂度分析：
+     * - 第一次遍历统计：O(n)
+     * - 第二次遍历重写：O(n)
+     * - 总时间复杂度：O(n)
+     *
+     * 空间复杂度分析：
+     * - 只使用常数额外变量（count0, count1, count2, i）：O(1)
      *
      * @param nums 包含0、1、2的数组
      */
@@ -112,6 +129,12 @@ public class SortColor75 {
     /**
      * 交换数组中两个元素的辅助方法
      *
+     * 时间复杂度分析：
+     * - 交换操作：O(1)
+     *
+     * 空间复杂度分析：
+     * - 只使用常数额外变量（temp）：O(1)
+     *
      * @param nums 数组
      * @param i 第一个元素的索引
      * @param j 第二个元素的索引
@@ -124,6 +147,16 @@ public class SortColor75 {
 
     /**
      * 辅助方法：读取用户输入的数组
+     *
+     * 时间复杂度分析：
+     * - 读取输入：O(m)，m为输入字符数
+     * - 解析为整数：O(n)，n为数组长度
+     * - 总时间复杂度：O(m+n)
+     *
+     * 空间复杂度分析：
+     * - 存储字符串数组：O(m)
+     * - 存储整数数组：O(n)
+     * - 总空间复杂度：O(m+n)
      *
      * @return 用户输入的整数数组
      */

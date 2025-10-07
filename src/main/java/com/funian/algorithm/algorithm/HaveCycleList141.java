@@ -45,6 +45,14 @@ public class HaveCycleList141 {
      * 4. 访问节点4，哈希表：{1,2,3,4}
      * 5. 再次访问节点2，发现已存在于哈希表中，返回true
      *
+     * 时间复杂度分析：
+     * - 遍历链表：O(n)，其中n为链表节点数
+     * - HashSet操作：O(1)
+     * - 总时间复杂度：O(n)
+     *
+     * 空间复杂度分析：
+     * - HashSet存储节点：O(n)
+     *
      * @param head 链表的头节点
      * @return 如果有环返回true，否则返回false
      */
@@ -71,6 +79,7 @@ public class HaveCycleList141 {
         return false;
     }
 
+
     /**
      * 方法2：使用快慢指针（Floyd判圈算法）
      *
@@ -91,6 +100,13 @@ public class HaveCycleList141 {
      * 快指针追赶慢指针，每次缩短1步距离
      * 最多经过b步后两者相遇
      *
+     * 时间复杂度分析：
+     * - 快指针遍历链表：O(n)，其中n为链表节点数
+     * - 总时间复杂度：O(n)
+     *
+     * 空间复杂度分析：
+     * - 只使用两个指针变量：O(1)
+     *
      * @param head 链表的头节点
      * @return 如果有环返回true，否则返回false
      */
@@ -101,13 +117,15 @@ public class HaveCycleList141 {
         }
 
         // 初始化快慢指针
-        ListNode slow = head;      // 慢指针，每次移动一步
-        ListNode fast = head;      // 快指针，每次移动两步
+        ListNode slow = head;
+        ListNode fast = head;
 
         // 循环直到快指针到达链表末尾
         while (fast != null && fast.next != null) {
-            slow = slow.next;           // 慢指针前进一步
-            fast = fast.next.next;      // 快指针前进两步
+            // 慢指针前进一步
+            slow = slow.next;
+            // 快指针前进两步
+            fast = fast.next.next;
 
             // 如果快慢指针相遇，说明有环
             if (slow == fast) {
@@ -135,7 +153,7 @@ public class HaveCycleList141 {
         head2.next = new ListNode(2);
         head2.next.next = new ListNode(3);
         head2.next.next.next = new ListNode(4);
-        head2.next.next.next.next = head2.next; // 形成环
+        head2.next.next.next.next = head2.next;
 
         // 测试无环链表
         System.out.println("无环链表检测结果（哈希表）: " + solution.hasCycleWithHashSet(head1));
@@ -144,5 +162,87 @@ public class HaveCycleList141 {
         // 测试有环链表
         System.out.println("有环链表检测结果（哈希表）: " + solution.hasCycleWithHashSet(head2));
         System.out.println("有环链表检测结果（快慢指针）: " + solution.hasCycleWithTwoPointers(head2));
+    }
+
+    /**
+     * 方法3：修改节点值标记法（破坏性方法）
+     *
+     * 算法思路：
+     * 遍历链表，将访问过的节点值修改为特殊标记值
+     * 如果遇到已被标记的节点，说明有环
+     *
+     * 注意：这种方法会修改原链表的节点值，实际应用中不推荐
+     *
+     * 执行过程分析（以链表 1->2->3->4->2 为例，4指向2形成环）：
+     * 1. 访问节点1，标记为MAX_VALUE，链表变为 MAX_VALUE->2->3->4->2
+     * 2. 访问节点2，标记为MAX_VALUE，链表变为 MAX_VALUE->MAX_VALUE->3->4->2
+     * 3. 访问节点3，标记为MAX_VALUE，链表变为 MAX_VALUE->MAX_VALUE->MAX_VALUE->4->2
+     * 4. 访问节点4，标记为MAX_VALUE，链表变为 MAX_VALUE->MAX_VALUE->MAX_VALUE->MAX_VALUE->2
+     * 5. 再次访问节点2，发现值为MAX_VALUE，返回true
+     *
+     * 时间复杂度分析：
+     * - 遍历链表：O(n)，其中n为链表节点数
+     * - 总时间复杂度：O(n)
+     *
+     * 空间复杂度分析：
+     * - 只使用常数额外变量：O(1)
+     *
+     * @param head 链表的头节点
+     * @return 如果有环返回true，否则返回false
+     */
+    public boolean hasCycleByMarking(ListNode head) {
+        // 特殊标记值，需要确保不会与原链表中的值冲突
+        final int MARK = Integer.MAX_VALUE;
+
+        ListNode current = head;
+        while (current != null) {
+            // 如果当前节点已被标记，说明有环
+            if (current.val == MARK) {
+                return true;
+            }
+
+            // 标记当前节点
+            current.val = MARK;
+
+            // 移动到下一个节点
+            current = current.next;
+        }
+
+        // 遍历完成未发现环，返回false
+        return false;
+    }
+
+    /**
+     * 方法4：使用异常处理检测环（投机取巧）
+     *
+     * 算法思路：
+     * 利用链表有环时toString()方法会产生StackOverflowError的特性
+     *
+     * 注意：这种方法不推荐在生产环境中使用
+     *
+     * 执行过程分析：
+     * 1. 对于无环链表：toString()方法正常执行，返回false
+     * 2. 对于有环链表：toString()方法递归调用导致栈溢出，捕获异常返回true
+     *
+     * 时间复杂度分析：
+     * - 无环情况：O(n)，其中n为链表节点数
+     * - 有环情况：O(1)，发生栈溢出立即返回
+     *
+     * 空间复杂度分析：
+     * - 只使用常数额外变量：O(1)
+     * - 有环时递归调用栈：O(n)
+     *
+     * @param head 链表的头节点
+     * @return 如果有环返回true，否则返回false
+     */
+    public boolean hasCycleByToString(ListNode head) {
+        try {
+            // 尝试调用toString方法，有环时会抛出StackOverflowError
+            head.toString();
+            return false;
+        } catch (StackOverflowError e) {
+            // 捕获到栈溢出错误，说明有环
+            return true;
+        }
     }
 }

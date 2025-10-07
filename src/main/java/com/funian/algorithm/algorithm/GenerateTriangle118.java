@@ -21,7 +21,7 @@ public class GenerateTriangle118 {
      *
      * 算法流程：
      * 1. 读取用户输入的行数
-     * 2. 调用generate方法生成杨辉三角
+     * 2. 调用 [generate](file:///Users/funian/Documents/JavaProject/Algorithm/src/main/java/com/funian/algorithm/algorithm/GenerateTriangle118.java#L77-L107)方法生成杨辉三角
      * 3. 输出结果
      */
     public static void main(String[] args) {
@@ -80,6 +80,14 @@ public class GenerateTriangle118 {
      *   j=4: row=[1,4,6,4,1] （边界情况）
      * triangle=[[1], [1,1], [1,2,1], [1,3,3,1], [1,4,6,4,1]]
      *
+     * 时间复杂度分析：
+     * - 外层循环：O(numRows)
+     * - 内层循环：O(i)（第i行有i+1个元素）
+     * - 总时间复杂度：O(numRows²)
+     *
+     * 空间复杂度分析：
+     * - 存储杨辉三角：O(numRows²)
+     *
      * @param numRows 杨辉三角的行数
      * @return 杨辉三角的前numRows行
      */
@@ -119,6 +127,13 @@ public class GenerateTriangle118 {
      * 算法思路：
      * 利用组合数公式：第n行第k个元素是C(n,k) = n!/(k!(n-k)!)
      *
+     * 时间复杂度分析：
+     * - 计算每行元素：O(rowIndex)
+     * - 总时间复杂度：O(rowIndex²)
+     *
+     * 空间复杂度分析：
+     * - 存储一行元素：O(rowIndex)
+     *
      * @param rowIndex 行索引（从0开始）
      * @return 杨辉三角的第rowIndex行
      */
@@ -140,6 +155,16 @@ public class GenerateTriangle118 {
 
     /**
      * 扩展方法：优化空间复杂度的生成方法
+     *
+     * 算法思路：
+     * 每次只保留前一行的数据，而不是存储所有行的数据
+     *
+     * 时间复杂度分析：
+     * - 生成每行：O(i)（第i行有i+1个元素）
+     * - 总时间复杂度：O(numRows²)
+     *
+     * 空间复杂度分析：
+     * - 存储杨辉三角：O(numRows²)
      *
      * @param numRows 杨辉三角的行数
      * @return 杨辉三角的前numRows行

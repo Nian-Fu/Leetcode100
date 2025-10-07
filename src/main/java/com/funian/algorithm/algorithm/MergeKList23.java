@@ -54,6 +54,16 @@ public class MergeKList23 {
      * 以此类推，直到堆为空
      * 最终结果：1->1->2->3->4->4->5->6
      *
+     * 时间复杂度分析：
+     * - 初始化堆：O(k)，其中k为链表数量
+     * - 每个节点的插入和删除操作：O(log k)
+     * - 总共有N个节点，总时间复杂度：O(N * log k)
+     *
+     * 空间复杂度分析：
+     * - 优先队列存储最多k个节点：O(k)
+     * - 虚拟头节点和指针变量：O(1)
+     * - 总空间复杂度：O(k)
+     *
      * @param lists K个升序链表的数组
      * @return 合并后的升序链表
      */
@@ -77,9 +87,9 @@ public class MergeKList23 {
         // 从堆中取出最小节点并加入结果链表
         // 当堆不为空时继续处理
         while (!minHeap.isEmpty()) {
-            ListNode node = minHeap.poll(); // 取出值最小的节点
-            current.next = node; // 将该节点加入结果链表
-            current = current.next; // 移动结果链表的指针到下一个位置
+            ListNode node = minHeap.poll();
+            current.next = node;
+            current = current.next;
 
             // 如果该节点还有下一个节点，则将下一个节点加入堆中
             // 这样可以保证每个链表的节点都能被处理
@@ -103,11 +113,14 @@ public class MergeKList23 {
      */
     public static void main(String[] args) {
         // 注意：原代码中这里有个错误，应该是MergeKList23而不是Solution
+        // 创建解决方案实例
         MergeKList23 solution = new MergeKList23();
+        // 创建Scanner对象读取用户输入
         Scanner scanner = new Scanner(System.in);
 
         // 读取链表的数量
         System.out.print("请输入链表的数量：");
+        // 读取链表数量
         int k = scanner.nextInt();
 
         // 创建链表数组
@@ -117,6 +130,7 @@ public class MergeKList23 {
         for (int i = 0; i < k; i++) {
             // 读取第i+1个链表的节点数
             System.out.print("请输入第 " + (i + 1) + " 个链表的节点数：");
+            // 读取节点数
             int n = scanner.nextInt();
 
             // 创建哑节点简化链表构建过程
@@ -143,6 +157,6 @@ public class MergeKList23 {
             System.out.print(mergedList.val + " ");
             mergedList = mergedList.next;
         }
-        System.out.println(); // 换行
+        System.out.println();
     }
 }

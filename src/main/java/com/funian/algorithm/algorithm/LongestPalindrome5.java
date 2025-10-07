@@ -21,7 +21,7 @@ public class LongestPalindrome5 {
      *
      * 算法流程：
      * 1. 读取用户输入的字符串
-     * 2. 调用longestPalindrome方法找出最长回文子串
+     * 2. 调用 [longestPalindrome](file:///Users/funian/Documents/JavaProject/Algorithm/src/main/java/com/funian/algorithm/algorithm/LongestPalindrome5.java#L77-L112)方法找出最长回文子串
      * 3. 输出结果
      */
     public static void main(String[] args) {
@@ -83,6 +83,15 @@ public class LongestPalindrome5 {
      * i=2, 字符'b': 最长回文仍为"bb"，长度2
      * i=3, 字符'd': 最长回文仍为"bb"，长度2
      *
+     * 时间复杂度分析：
+     * - 外层循环运行n次（n为字符串长度）：O(n)
+     * - 每次中心扩展最多需要O(n)时间：O(n)
+     * - 总时间复杂度为O(n²)
+     *
+     * 空间复杂度分析：
+     * - 只使用了常数个额外变量：O(1)
+     * - 不需要额外的数据结构存储中间结果：O(1)
+     *
      * @param s 输入字符串
      * @return 最长回文子串
      */
@@ -119,6 +128,15 @@ public class LongestPalindrome5 {
     /**
      * 从中心向两边扩展寻找回文
      *
+     * 算法思路：
+     * 从给定的中心位置向两边扩展，直到字符不匹配或到达边界
+     *
+     * 时间复杂度分析：
+     * - 最多扩展n次：O(n)
+     *
+     * 空间复杂度分析：
+     * - 只使用常数额外空间：O(1)
+     *
      * @param s 输入字符串
      * @param left 左边界
      * @param right 右边界
@@ -141,6 +159,15 @@ public class LongestPalindrome5 {
      * 使用二维DP表，dp[i][j]表示s[i...j]是否为回文
      * 状态转移方程：
      * dp[i][j] = (s[i] == s[j]) && dp[i+1][j-1]
+     *
+     * 时间复杂度分析：
+     * - 初始化单字符回文：O(n)
+     * - 检查长度为2的子串：O(n)
+     * - 检查长度大于2的子串：O(n²)
+     * - 总时间复杂度：O(n²)
+     *
+     * 空间复杂度分析：
+     * - 二维DP表：O(n²)
      *
      * @param s 输入字符串
      * @return 最长回文子串

@@ -20,7 +20,7 @@ public class MaxProduct152 {
      *
      * 算法流程：
      * 1. 读取用户输入的整数数组
-     * 2. 调用maxProduct方法计算最大乘积
+     * 2. 调用 [maxProduct](file:///Users/funian/Documents/JavaProject/Algorithm/src/main/java/com/funian/algorithm/algorithm/MaxProduct152.java#L125-L162)方法计算最大乘积
      * 3. 输出结果
      */
     public static void main(String[] args) {
@@ -113,6 +113,12 @@ public class MaxProduct152 {
      * 最终结果：result = 0
      * 最大乘积子数组：[0]，乘积=0
      *
+     * 时间复杂度分析：
+     * - 遍历数组一次：O(n)
+     *
+     * 空间复杂度分析：
+     * - 只使用常数额外变量：O(1)
+     *
      * @param nums 输入的整数数组
      * @return 乘积最大的连续子数组的乘积
      */
@@ -158,6 +164,12 @@ public class MaxProduct152 {
      * 同时维护当前位置的最大乘积和最小乘积
      * 因为负数可能导致最大值和最小值互换
      *
+     * 时间复杂度分析：
+     * - 遍历数组一次：O(n)
+     *
+     * 空间复杂度分析：
+     * - 只使用常数额外变量：O(1)
+     *
      * @param nums 输入的整数数组
      * @return 乘积最大的连续子数组的乘积
      */
@@ -186,6 +198,13 @@ public class MaxProduct152 {
 
     /**
      * 扩展方法：返回乘积最大的连续子数组
+     *
+     * 时间复杂度分析：
+     * - 遍历数组一次：O(n)
+     *
+     * 空间复杂度分析：
+     * - 只使用常数额外变量：O(1)
+     * - 返回子数组：O(k)，k为子数组长度
      *
      * @param nums 输入的整数数组
      * @return 乘积最大的连续子数组

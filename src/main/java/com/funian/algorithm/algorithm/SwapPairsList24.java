@@ -22,9 +22,7 @@ public class SwapPairsList24 {
     static class ListNode {
         int val;
         ListNode next;
-        ListNode() {}
         ListNode(int val) { this.val = val; }
-        ListNode(int val, ListNode next) { this.val = val; this.next = next; }
     }
 
     /**
@@ -65,6 +63,13 @@ public class SwapPairsList24 {
      *    first -> null (循环结束)
      * 4. 最终状态：dummy -> 2 -> 1 -> 4 -> 3 -> null
      *
+     * 时间复杂度分析：
+     * - 遍历链表：O(n)，其中n为链表长度
+     * - 每次循环执行常数时间操作
+     *
+     * 空间复杂度分析：
+     * - 只使用常数个额外变量：O(1)
+     *
      * @param head 链表的头节点
      * @return 交换后的链表头节点
      */
@@ -79,20 +84,20 @@ public class SwapPairsList24 {
         // 当还有至少两个节点需要交换时继续循环
         while (head != null && head.next != null) {
             // 定义要交换的两个节点
-            ListNode first = head;      // 第一个节点
-            ListNode second = head.next; // 第二个节点
+            ListNode first = head;
+            ListNode second = head.next;
 
             // 保存下一对节点的开始位置
             ListNode nextPair = second.next;
 
             // 执行交换操作
-            second.next = first;        // 第二个节点指向第一个节点
-            first.next = nextPair;      // 第一个节点指向下一对节点
-            prev.next = second;         // 前一个节点指向第二个节点
+            second.next = first;
+            first.next = nextPair;
+            prev.next = second;
 
             // 更新指针，准备处理下一对节点
-            prev = first;               // prev移动到第一个节点（现在是后一个）
-            head = nextPair;            // head移动到下一对节点的开始位置
+            prev = first;
+            head = nextPair;
         }
 
         // 返回交换后的链表头节点
@@ -126,6 +131,13 @@ public class SwapPairsList24 {
      * ├─ first.next = nextPair (1->4->3->null)
      * └─ 返回 2->1->4->3->null
      *
+     * 时间复杂度分析：
+     * - 递归深度：O(n/2)，其中n为链表长度
+     * - 每层递归执行常数时间操作
+     *
+     * 空间复杂度分析：
+     * - 递归调用栈深度：O(n/2)
+     *
      * @param head 链表的头节点
      * @return 交换后的链表头节点
      */
@@ -136,15 +148,15 @@ public class SwapPairsList24 {
         }
 
         // 定义要交换的两个节点
-        ListNode first = head;          // 第一个节点
-        ListNode second = head.next;    // 第二个节点
+        ListNode first = head;
+        ListNode second = head.next;
 
         // 递归处理剩余的节点
         ListNode nextPair = swapPairsRecursive(second.next);
 
         // 执行交换操作
-        second.next = first;            // 第二个节点指向第一个节点
-        first.next = nextPair;          // 第一个节点指向递归处理后的剩余部分
+        second.next = first;
+        first.next = nextPair;
 
         // 返回新的头节点（第二个节点）
         return second;
@@ -155,12 +167,16 @@ public class SwapPairsList24 {
      */
     public ListNode createList(int[] values) {
         if (values.length == 0) return null;
+        // 创建头节点
         ListNode head = new ListNode(values[0]);
+        // current 当前节点指针
         ListNode current = head;
+        // for (int i = 1; i < values.length; i++) 遍历数组剩余元素
         for (int i = 1; i < values.length; i++) {
             current.next = new ListNode(values[i]);
             current = current.next;
         }
+        // 返回链表头节点
         return head;
     }
 
@@ -168,6 +184,7 @@ public class SwapPairsList24 {
      * 辅助方法：打印链表（用于测试）
      */
     public void printList(ListNode head) {
+        // current 当前节点指针，初始指向头节点
         ListNode current = head;
         while (current != null) {
             System.out.print(current.val);
@@ -183,6 +200,7 @@ public class SwapPairsList24 {
      * 测试方法和使用示例
      */
     public static void main(String[] args) {
+        // 创建解决方案实例
         SwapPairsList24 solution = new SwapPairsList24();
 
         // 测试用例1：偶数个节点
@@ -190,6 +208,7 @@ public class SwapPairsList24 {
         System.out.println("原始链表（偶数个节点）:");
         solution.printList(head1);
 
+        // solution.swapPairsIterative(head1) 使用迭代解法交换节点
         ListNode result1 = solution.swapPairsIterative(head1);
         System.out.println("迭代解法交换后:");
         solution.printList(result1);
@@ -199,6 +218,7 @@ public class SwapPairsList24 {
         System.out.println("原始链表（奇数个节点）:");
         solution.printList(head2);
 
+        // solution.swapPairsRecursive(head2) 使用递归解法交换节点
         ListNode result2 = solution.swapPairsRecursive(head2);
         System.out.println("递归解法交换后:");
         solution.printList(result2);
@@ -208,6 +228,7 @@ public class SwapPairsList24 {
         System.out.println("原始链表（单个节点）:");
         solution.printList(head3);
 
+        // solution.swapPairsIterative(head3) 使用迭代解法交换节点
         ListNode result3 = solution.swapPairsIterative(head3);
         System.out.println("交换后:");
         solution.printList(result3);
@@ -217,6 +238,7 @@ public class SwapPairsList24 {
         System.out.println("原始链表（空链表）:");
         solution.printList(head4);
 
+        // solution.swapPairsRecursive(head4) 使用递归解法交换节点
         ListNode result4 = solution.swapPairsRecursive(head4);
         System.out.println("交换后:");
         solution.printList(result4);

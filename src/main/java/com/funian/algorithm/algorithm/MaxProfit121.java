@@ -20,7 +20,7 @@ public class MaxProfit121 {
      *
      * 算法流程：
      * 1. 读取用户输入的股票价格数组
-     * 2. 调用maxProfit方法计算最大利润
+     * 2. 调用 [maxProfit](file:///Users/funian/Documents/JavaProject/Algorithm/src/main/java/com/funian/algorithm/algorithm/MaxProfit121.java#L97-L124)方法计算最大利润
      * 3. 输出结果
      */
     public static void main(String[] args) {
@@ -93,6 +93,14 @@ public class MaxProfit121 {
      * 最终结果：maxProfit = 5
      * 最佳策略：第2天买入(price=1)，第5天卖出(price=6)，利润=6-1=5
      *
+     * 时间复杂度分析：
+     * - 遍历价格数组：O(n)
+     * - 每次操作：O(1)
+     * - 总时间复杂度：O(n)
+     *
+     * 空间复杂度分析：
+     * - 只使用常数额外变量：O(1)
+     *
      * @param prices 股票价格数组，prices[i]表示第i天的股票价格
      * @return 能获得的最大利润
      */
@@ -137,6 +145,14 @@ public class MaxProfit121 {
      * hold = max(hold, -price) // 继续持有 或 买入
      * sold = max(sold, hold + price) // 继续不持有 或 卖出
      *
+     * 时间复杂度分析：
+     * - 遍历价格数组：O(n)
+     * - 每次操作：O(1)
+     * - 总时间复杂度：O(n)
+     *
+     * 空间复杂度分析：
+     * - 只使用常数额外变量：O(1)
+     *
      * @param prices 股票价格数组
      * @return 能获得的最大利润
      */
@@ -159,6 +175,14 @@ public class MaxProfit121 {
      *
      * 算法思路：
      * 尝试所有可能的买入和卖出组合
+     *
+     * 时间复杂度分析：
+     * - 双重循环：O(n²)
+     * - 每次操作：O(1)
+     * - 总时间复杂度：O(n²)
+     *
+     * 空间复杂度分析：
+     * - 只使用常数额外变量：O(1)
      *
      * @param prices 股票价格数组
      * @return 能获得的最大利润
