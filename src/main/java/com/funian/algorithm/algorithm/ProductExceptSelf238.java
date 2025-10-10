@@ -122,20 +122,6 @@ public class ProductExceptSelf238 {
     }
 
 
-    public int[] mamx(int[] nums) {
-        int n = nums.length;
-        int[] answer = new int[n];
-        answer[0] = 1;
-        for (int i = 1; i < n; i++) {
-            answer[i] = answer[i - 1] + nums[i - 1];
-        }
-        int end = 1;
-        for (int i = n - 1; i >= 0 ; i++) {
-            answer[i] = answer[i] *end;
-            end *= nums[i];
-        }
-        return answer;
-    }
     /**
      * 方法2：使用两个数组分别存储前缀积和后缀积
      *

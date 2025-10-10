@@ -107,6 +107,7 @@ public class GroupAnagrams49 {
         return new ArrayList<>(map.values());
     }
 
+
     /**
      * 方法2：使用字符计数作为键（避免排序）
      *
@@ -182,7 +183,6 @@ public class GroupAnagrams49 {
         // 返回所有分组的列表
         return new ArrayList<>(map.values());
     }
-
 
     /**
      * 方法3：使用质数乘积作为键

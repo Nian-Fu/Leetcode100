@@ -1,9 +1,8 @@
 package com.funian.algorithm.algorithm;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import com.sun.jdi.connect.AttachingConnector;
+
+import java.util.*;
 
 /**
  * 三数之和（LeetCode 15）
@@ -206,7 +205,7 @@ public class ThreeSum15 {
             }
 
             // 使用HashSet存储已访问的元素
-            java.util.Set<Integer> seen = new java.util.HashSet<>();
+            Set<Integer> seen = new HashSet<>();
 
             // 内层循环遍历第二个数
             for (int j = i + 1; j < nums.length; j++) {

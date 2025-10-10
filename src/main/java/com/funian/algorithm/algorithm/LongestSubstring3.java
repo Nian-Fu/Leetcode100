@@ -121,7 +121,6 @@ public class LongestSubstring3 {
         return maxLength;
     }
 
-
     /**
      * 方法2：优化的滑动窗口（使用HashMap记录字符位置）
      *

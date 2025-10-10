@@ -128,7 +128,6 @@ public class LongestConsecutive128 {
         return longestCount;
     }
 
-
     /**
      * 方法2：排序后遍历（时间复杂度较高但思路简单）
      *
